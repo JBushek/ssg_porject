@@ -12,12 +12,15 @@ public class App
 
     public static void main( String[] args )
     {
-        int i = 0;
+        fullHTML = "<!DOCTYPE html>\n<html>\n<body>\n";
         JSONArray jArray = Read.ReadJson();
-        //while(i<300){
+        int i = 0;
+        int iMax = jArray.size();
+        //while(i<iMax){
             Sort1(jArray, i);
             i++;
         //};
+        fullHTML += "</body>\n</html>";
     }
 
     public static void Sort1(JSONArray jArray, int loopNum){
@@ -37,16 +40,19 @@ public class App
         cashValue = Float.parseFloat(preBal);
         stockValue = 0;
 
-        fullAccountDetails += "<h3>Stock Symbol&nbsp;&nbsp;&nbsp;Type&nbsp;&nbsp;&nbsp;Stock Count&nbsp;&nbsp;&nbsp;Price Per Share</h3>\n\n";
+        fullAccountDetails += "<h3>Stock&nbsp;|&nbsp;Type&nbsp;|&nbsp;Stock Count&nbsp;|&nbsp;Price Per Share</h3>\n\n";
 
-        //for(){
-            JSONObject stockDetailsObj = (JSONObject) stockTrades.get(0);
+        int loopMax = stockTrades.size();
+        int loopNum2 = 0;
+        while(loopNum2<loopMax){
+            JSONObject stockDetailsObj = (JSONObject) stockTrades.get(loopNum2);
             Math(stockDetailsObj);
-        //}
+            loopNum2++;
+        }
 
-        fullAccountDetails += "\n<h3>Cash Balance: " + String.valueOf(cashValue) + "&nbsp;&nbsp;&nbsp;Stock Value: " + String.valueOf(stockValue) + "</h3>";
-
-        System.out.println(fullAccountDetails);
+        fullAccountDetails += "\n<h3>Cash Balance: $" + String.valueOf(cashValue) + "&nbsp;&nbsp;&nbsp;Stock Value: $" + String.valueOf(stockValue) + "</h3>\n<br>\n<br>\n<br>";
+        fullHTML += fullAccountDetails;
+        System.out.println();
     }
 
     public static void Math(JSONObject stockDetailsObj){
@@ -72,10 +78,6 @@ public class App
             System.out.println("What the hell did you do with your stocks?\nFuck you");
         }
 
-        fullAccountDetails += "<b>" + stockSym + "&nbsp;" + tradeType + "&nbsp;" + stockCountS + "&nbsp;" + ppsB + "</b>\n";
-    }
-
-    public static void Some4(){
-        
+        fullAccountDetails += "<b>" + stockSym + "&nbsp;&nbsp;|&nbsp;&nbsp;" + tradeType + "&nbsp;&nbsp;|&nbsp;&nbsp;" + stockCountS + "&nbsp;&nbsp;|&nbsp;&nbsp;$" + ppsB + "</b><br>\n";
     }
 }
