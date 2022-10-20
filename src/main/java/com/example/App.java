@@ -12,21 +12,23 @@ public class App
 
     public static void main( String[] args )
     {
+        Write.MakeFile();
         fullHTML = "<!DOCTYPE html>\n<html>\n<body>\n";
         JSONArray jArray = Read.ReadJson();
         int i = 0;
         int iMax = jArray.size();
-        //while(i<iMax){
+        while(i<iMax){
             Sort1(jArray, i);
             i++;
-        //};
-        fullHTML += "</body>\n</html>";
+        };
+        fullHTML += "\n</body>\n</html>";
+        Write.WriteHTML(fullHTML);
     }
 
     public static void Sort1(JSONArray jArray, int loopNum){
         JSONObject stockAccount = (JSONObject) jArray.get(loopNum);
-        String accountDetails = "Account #: " + String.valueOf(stockAccount.get("account_number")) + " Account Holder: " + String.valueOf(stockAccount.get("first_name")) + " " + String.valueOf(stockAccount.get("last_name")) + " SSN: " + String.valueOf(stockAccount.get("ssn")) + " Email: " + String.valueOf(stockAccount.get("email")) + " Phone #: " + String.valueOf(stockAccount.get("phone"));
-        fullAccountDetails = "<h2>" + accountDetails + "</h2>\n\n\n";
+        String accountDetails = "Account #: " + String.valueOf(stockAccount.get("account_number")) + " Account Holder: " + String.valueOf(stockAccount.get("first_name")) + " " + String.valueOf(stockAccount.get("last_name")) + " SSN: " + String.valueOf(stockAccount.get("ssn")) + "<br>\nEmail: " + String.valueOf(stockAccount.get("email")) + " Phone #: " + String.valueOf(stockAccount.get("phone"));
+        fullAccountDetails = "\n<h2>" + accountDetails + "</h2>\n\n\n";
         Sort2(stockAccount);
         System.out.println();
     }
@@ -50,7 +52,7 @@ public class App
             loopNum2++;
         }
 
-        fullAccountDetails += "\n<h3>Cash Balance: $" + String.valueOf(cashValue) + "&nbsp;&nbsp;&nbsp;Stock Value: $" + String.valueOf(stockValue) + "</h3>\n<br>\n<br>\n<br>";
+        fullAccountDetails += "\n<h3>Cash Balance: $" + String.valueOf(cashValue) + "&nbsp;&nbsp;&nbsp;Stock Value: $" + String.valueOf(stockValue) + "</h3>\n<br>\n<br>\n<br>\n";
         fullHTML += fullAccountDetails;
         System.out.println();
     }
